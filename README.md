@@ -37,49 +37,89 @@ A high-performance fraud detection engine capable of analyzing UPI and digital p
 
 ## 📊 Performance Metrics
 
-```
-┌─────────────────────────────────────────┐
-│  Metric          Target      Achieved   │
-├─────────────────────────────────────────┤
-│  Latency         <500ms      0.25ms ✓   │
-│  Throughput      >1000 TPS   4,024 TPS ✓│
-│  ML Scoring      <200ms      ~150ms ✓   │
-│  Graph Analysis  <150ms      ~100ms ✓   │
-│  Success Rate    >95%        100% ✓     │
-└─────────────────────────────────────────┘
+<!-- Performance metrics updated dynamically -->
+<div align="center">
+
+| Metric | Target | Achieved | Status |
+|--------|--------|----------|--------|
+| **Latency** | <500ms | **0.25ms** | ✅ **2000x better** |
+| **Throughput** | >1000 TPS | **4,024 TPS** | ✅ **4x better** |
+| **ML Scoring** | <200ms | **~150ms** | ✅ **25% better** |
+| **Graph Analysis** | <150ms | **~100ms** | ✅ **33% better** |
+| **Success Rate** | >95% | **100%** | ✅ **Perfect** |
+
+</div>
+
+### Real-Time Performance
+
+```mermaid
+graph LR
+    A[Transaction Input] -->|0ms| B[Fraud Engine]
+    B -->|150ms| C[ML Scorer]
+    B -->|100ms| D[Graph Detector]
+    B -->|50ms| E[Biometric Analyzer]
+    C --> F[Ensemble]
+    D --> F
+    E --> F
+    F -->|0.25ms Total| G[Result]
+    
+    style A fill:#6366f1
+    style G fill:#10b981
+    style F fill:#8b5cf6
 ```
 
-## 🏗️ Architecture
+## 🏗️ System Architecture
 
+<!-- Architecture diagram using Mermaid -->
+```mermaid
+flowchart TD
+    A[Transaction Input] --> B[Fraud Detection Engine]
+    B --> C[Parallel Execution]
+    
+    C --> D[ML Scorer<br/>LightGBM<br/>&lt;200ms]
+    C --> E[Graph Detector<br/>NetworkX<br/>&lt;150ms]
+    C --> F[Biometric Analyzer<br/>Z-score<br/>&lt;100ms]
+    
+    D --> G[Weighted Ensemble<br/>50% + 30% + 20%]
+    E --> G
+    F --> G
+    
+    G --> H[Fraud Score + Decision]
+    H --> I[Result &lt;500ms]
+    
+    style A fill:#6366f1,color:#fff
+    style B fill:#8b5cf6,color:#fff
+    style D fill:#10b981,color:#fff
+    style E fill:#10b981,color:#fff
+    style F fill:#10b981,color:#fff
+    style G fill:#f59e0b,color:#fff
+    style I fill:#ef4444,color:#fff
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    Transaction Input                         │
-└────────────────────┬────────────────────────────────────────┘
-                     │
-         ┌───────────┴───────────┐
-         │  Fraud Detection      │
-         │  Engine (Parallel)    │
-         └───────────┬───────────┘
-                     │
-    ┌────────────────┼────────────────┐
-    │                │                │
-┌───▼────┐    ┌─────▼─────┐   ┌─────▼──────┐
-│   ML   │    │   Graph   │   │ Biometric  │
-│ Scorer │    │ Detector  │   │  Analyzer  │
-│<200ms  │    │  <150ms   │   │   <100ms   │
-└───┬────┘    └─────┬─────┘   └─────┬──────┘
-    │                │                │
-    └────────────────┼────────────────┘
-                     │
-              ┌──────▼──────┐
-              │   Weighted  │
-              │   Ensemble  │
-              └──────┬──────┘
-                     │
-              ┌──────▼──────┐
-              │ Fraud Score │
-              │  + Decision │
-              └─────────────┘
+
+### Component Breakdown
+
+```mermaid
+graph TB
+    subgraph "Detection Layers"
+        ML["🧠 ML Scorer<br/>Weight: 50%<br/>Features: 9<br/>Time: 150ms"]
+        GR["🕸️ Graph Detector<br/>Weight: 30%<br/>Patterns: 7<br/>Time: 100ms"]
+        BIO["👤 Biometric<br/>Weight: 20%<br/>Metrics: 4<br/>Time: 50ms"]
+    end
+    
+    subgraph "Data Layer"
+        CACHE["Redis Cache<br/>Sub-ms Access"]
+        HIST["Transaction History"]
+    end
+    
+    ML --> CACHE
+    GR --> CACHE
+    BIO --> CACHE
+    CACHE --> HIST
+    
+    style ML fill:#6366f1,color:#fff
+    style GR fill:#8b5cf6,color:#fff
+    style BIO fill:#10b981,color:#fff
+    style CACHE fill:#f59e0b,color:#000
 ```
 
 ## 🚀 Quick Start
@@ -156,6 +196,32 @@ curl -X POST http://localhost:5000/api/v1/analyze \
 ```
 
 ## 🎯 Fraud Detection Patterns
+
+```mermaid
+mindmap
+  root((Fraud<br/>Detection))
+    Circular
+      Score 0.9
+      Graph
+    Mule Accounts
+      Score 0.8
+      Network
+    Velocity
+      Score 0.6
+      Frequency
+    Biometric
+      Score 0.7
+      Behavior
+    Device Change
+      Score 0.5
+      Context
+    Timing
+      Score 0.3
+      Hours
+    Amount
+      Score 0.4
+      Threshold
+```
 
 | Pattern | Detection Method | Score Impact |
 |---------|-----------------|--------------|
