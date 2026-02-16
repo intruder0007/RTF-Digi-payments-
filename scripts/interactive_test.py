@@ -2,6 +2,8 @@
 Interactive Fraud Detection Tester
 Test the system with custom transactions
 """
+import os, sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from datetime import datetime
 from src.fraud_engine import FraudDetectionEngine
